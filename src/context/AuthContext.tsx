@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 };
 
 // Hook para usar el contexto: const { usuario, login, logout } = useAuth();
-// oxlint-disable-next-line react/only-export-components
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = (): AuthContextTipo => {
   const contexto = useContext(AuthContext);
   if (!contexto) {
