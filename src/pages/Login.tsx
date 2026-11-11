@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { FormEvent } from 'react';
+import type { SubmitEvent } from 'react';
 import { Alert, Button, Card, Col, Container, Form, InputGroup, Row } from 'react-bootstrap';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -36,7 +36,7 @@ const Login = () => {
     return Object.keys(nuevos).length === 0;
   };
 
-  const manejarEnvio = async (e: FormEvent<HTMLFormElement>) => {
+  const manejarEnvio = async (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrorServidor('');
     if (!validar()) return;

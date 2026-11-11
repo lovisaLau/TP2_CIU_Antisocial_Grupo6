@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { ChangeEvent, FormEvent } from 'react';
+import type { ChangeEvent, SubmitEvent } from 'react';
 import { Alert, Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -60,7 +60,7 @@ const Registro = () => {
     return Object.keys(nuevos).length === 0;
   };
 
-  const manejarEnvio = async (e: FormEvent<HTMLFormElement>) => {
+  const manejarEnvio = async (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrorServidor('');
     if (!validar()) return; // antes de enviar, los campos tienen que estar completos
