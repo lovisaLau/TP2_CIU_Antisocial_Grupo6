@@ -51,7 +51,21 @@ h3,
 .text-acento {
   color: var(--acento);
 }
-
+.text-acento {
+  color: var(--acento);
+}
+ 
+/* Casillas y foco con el violeta de la marca (no el azul de Bootstrap) */
+.form-check-input:checked {
+  background-color: var(--violeta);
+  border-color: var(--violeta);
+}
+ 
+.form-check-input:focus,
+.form-control:focus {
+  border-color: var(--violeta);
+  box-shadow: 0 0 0 0.25rem rgba(91, 60, 196, 0.25);
+}
 /* ----- Barra y pie ----- */
 .barra-navegacion {
   background-color: var(--texto) !important;
