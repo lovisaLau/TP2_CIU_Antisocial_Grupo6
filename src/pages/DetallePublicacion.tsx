@@ -16,8 +16,9 @@ const DetallePublicacion = () => {
   const location = useLocation();
 
   const [publicacion, setPublicacion] = useState<Publicacion | null>(null);
-  const [cargando, setCargando] = useState(true);
   const [error, setError] = useState('');
+   // id de la última publicación que terminó de cargar: si no coincide con el de la URL, está cargando
+  const [idCargado, setIdCargado] = useState<string>();
   // Cada vez que cambia, el useEffect vuelve a pedir la publicación (ej. al comentar)
   const [recargas, setRecargas] = useState(0);
 
@@ -31,14 +32,16 @@ const DetallePublicacion = () => {
         setError('');
       })
       .catch((err: Error) => activo && setError(err.message))
-      .finally(() => activo && setCargando(false));
+      .finally(() => activo && setIdCargado(id));
 
     return () => {
       activo = false;
     };
   }, [id, recargas]);
 
-  if (cargando) return <Cargando texto="Cargando publicación..." />;
+    const cargando = idCargado !== id;
+    if (cargando) return <Cargando texto="Cargando publicación..." />;
+
 
   if (error || !publicacion) {
     return (
