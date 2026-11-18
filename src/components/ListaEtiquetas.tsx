@@ -5,7 +5,7 @@ interface Props {
   etiquetas: Etiqueta[];
 }
 
-//Muestra las etiquetas de una publicacion como <div id="unahur"
+// Muestra las etiquetas de una publicación como píldoras (#unahur, #node...)
 export const ListaEtiquetas = ({ etiquetas }: Props) => {
     if (etiquetas.length === 0) return null;
     return (
