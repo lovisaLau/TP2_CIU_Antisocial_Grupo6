@@ -25,7 +25,7 @@ const NuevaPublicacion = () => {
   const [errorServidor, setErrorServidor] = useState('');
   const [enviando, setEnviando] = useState(false);
   const [idCreado, setIdCreado] = useState<number | null>(null);
-
+  const [imagenesFallidas, setImagenesFallidas] = useState<string[]>([]);
   // Lista de etiquetas obtenida desde la API (GET /tags)
   useEffect(() => {
     obtenerEtiquetas()
@@ -76,13 +76,20 @@ const NuevaPublicacion = () => {
         tags: etiquetasElegidas,
       });
 
-      // Por cada URL cargada, se asocia la imagen al post nuevo
+      // Por cada URL cargada, se asocia la imagen al post nuevo.
+      // Si una falla, se sigue con las demás: la publicación ya existe y no hay que crearla de nuevo.
       const urlsCargadas = urls.map((url) => url.trim()).filter((url) => url !== '');
+      const fallidas: string[] = [];
       for (const url of urlsCargadas) {
-        await agregarImagen(publicacion.id, url);
+        try {
+          await agregarImagen(publicacion.id, url);
+        } catch {
+          fallidas.push(url);
+        }
       }
-
-      // Confirmación
+ 
+      // Confirmación (con aviso si alguna imagen no se pudo agregar)
+      setImagenesFallidas(fallidas);
       setIdCreado(publicacion.id);
     } catch (err) {
       setErrorServidor(err instanceof Error ? err.message : 'No se pudo crear la publicación.');
@@ -95,7 +102,9 @@ const NuevaPublicacion = () => {
     setDescripcion('');
     setUrls(['']);
     setEtiquetasElegidas([]);
+    setImagenesFallidas([]);
     setIdCreado(null);
+
   };
 
   // Pantalla de confirmación
@@ -105,6 +114,13 @@ const NuevaPublicacion = () => {
         <Alert variant="success" className="p-4 p-md-5 text-center aparecer">
           <h1 className="h3 fw-bold">¡Publicación creada! 🎉</h1>
           <p className="mb-4">Ya está en el feed para que la vea todo el mundo.</p>
+          {imagenesFallidas.length > 0 && (
+            <Alert variant="warning" className="text-start">
+              No se pudo agregar {imagenesFallidas.length === 1 ? 'esta imagen' : 'estas imágenes'}:{' '}
+              {imagenesFallidas.join(', ')}
+            </Alert>
+          )}
+
           <div className="d-flex flex-wrap justify-content-center gap-2">
             <Link to={`/post/${idCreado}`} className="btn btn-success">
               Ver mi publicación
