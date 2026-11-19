@@ -51,9 +51,6 @@ h3,
 .text-acento {
   color: var(--acento);
 }
-.text-acento {
-  color: var(--acento);
-}
  
 /* Casillas y foco con el violeta de la marca (no el azul de Bootstrap) */
 .form-check-input:checked {
