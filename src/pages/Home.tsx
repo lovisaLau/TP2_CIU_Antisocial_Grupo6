@@ -11,7 +11,7 @@ const POR_PAGINA = 6;
 
 const datosCuriosos = [
   'Acá no hay "me gusta": si algo te gustó, comentalo.',
-  'Los comentarios con más de 6 meses desaparecen solos. Nada es para siempre.',
+  'Los comentarios viejos desaparecen solos. Nada es para siempre.',
   'No hay seguidores que contar. Solo publicaciones y charlas.',
 ];
 
