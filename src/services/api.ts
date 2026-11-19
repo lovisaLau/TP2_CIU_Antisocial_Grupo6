@@ -60,8 +60,8 @@ export const obtenerPublicaciones = () => pedir<Publicacion[]>('/posts');
 
 export const obtenerPublicacion = (id: number) => pedir<Publicacion>(`/posts/${id}`);
 
-// Nuestro BackEnd devuelve todos los posts aunque reciba ?userId,
-// así que además filtramos acá por las dudas.
+// El BackEnd filtra por ?userId. Igual filtramos acá por las dudas
+// (por ejemplo, si se usa una versión vieja de la API que lo ignora).
 export const obtenerPublicacionesDeUsuario = async (userId: number) => {
   const publicaciones = await pedir<Publicacion[]>(`/posts?userId=${userId}`);
   return publicaciones.filter((publicacion) => publicacion.userId === userId);
