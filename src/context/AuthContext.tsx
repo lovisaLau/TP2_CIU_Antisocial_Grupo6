@@ -36,7 +36,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [usuario]);
 
-  const login = (usuarioLogueado: Usuario) => setUsuario(usuarioLogueado);
+  const login = (usuarioLogueado: Usuario) => {
+  // Se guarda enseguida (además del useEffect) para no perder la sesión
+  // si la página se recarga justo después de iniciar sesión.
+  localStorage.setItem(CLAVE_STORAGE, JSON.stringify(usuarioLogueado));
+  setUsuario(usuarioLogueado);
+  };
   const logout = () => setUsuario(null);
 
   return (
